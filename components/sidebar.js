@@ -13,7 +13,7 @@ const Sidebar = () => {
 
   return (
     <div className="">
-      <div className="flex flex-col space-y-4 py-8 px-4  h-[680px] w-64 bg-gray-900 text-white ">
+      <div className="flex flex-col space-y-6 py-8 px-4  h-[680px] w-64 bg-gray-900 text-white ">
         <Link href={"/talent"}>
           <div
             className={`flex items-center space-x-3 ${

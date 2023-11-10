@@ -17,9 +17,11 @@ import { Toaster, toast } from "react-hot-toast";
 import Navbar from "@/components/navbar";
 
 export default function App({ Component, pageProps }) {
-  const [updateTalents, updateCutomers] = useStore((store) => [
+  const [updateTalents, updateCutomers,updateAllTalents,updateAllCustomers] = useStore((store) => [
     store.updateTalents,
     store.updateCutomers,
+    store.updateAllTalents,
+    store.updateAllCustomers,
   ]);
 
   const devCollection = collection(db, "developers");
@@ -38,11 +40,10 @@ export default function App({ Component, pageProps }) {
         id: doc.id,
       }));
       // const user = JSON.parse(localStorage.getItem("userDetails"));
-      // const rfq = filteredData.filter(
-      //   (item) => item.productCategory[1] == sellerCategory
-      // ).sort((a, b) => a.timestamp && b.timestamp &&  b.timestamp["seconds"] - a.timestamp["seconds"]);
-      // console.log("gfacsf", filteredData);
-      updateTalents(filteredData);
+      const sortData = filteredData.sort((a, b) => a.timestamp && b.timestamp &&  b.timestamp["seconds"] - a.timestamp["seconds"]);
+      // console.log("gfacsf", sortData);
+      updateTalents(sortData);
+      updateAllTalents(sortData);
       setTalents(filteredData);
       // console.log("rfq0,rfq", rfq);
 
@@ -63,11 +64,10 @@ export default function App({ Component, pageProps }) {
         id: doc.id,
       }));
       // const user = JSON.parse(localStorage.getItem("userDetails"));
-      // const rfq = filteredData.filter(
-      //   (item) => item.productCategory[1] == sellerCategory
-      // ).sort((a, b) => a.timestamp && b.timestamp &&  b.timestamp["seconds"] - a.timestamp["seconds"]);
-      // console.log("gfacsf", filteredData);
-      updateCutomers(filteredData);
+      const sortData = filteredData.sort((a, b) => a.timestamp && b.timestamp &&  b.timestamp["seconds"] - a.timestamp["seconds"]);
+      // console.log("gfacsf", );
+      updateCutomers(sortData);
+      updateAllCustomers(sortData)
 
       setCustomers(filteredData);
       // console.log("rfq0,rfq", rfq);
@@ -79,10 +79,14 @@ export default function App({ Component, pageProps }) {
       // setIsLoading(false);
     }
   };
+  const router = useRouter()
 
   useEffect(() => {
     getTalents();
     getCustomers();
+
+
+  
   }, []);
 
   return (
